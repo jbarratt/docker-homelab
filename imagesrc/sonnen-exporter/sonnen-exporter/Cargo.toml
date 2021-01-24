@@ -1,0 +1,19 @@
+[package]
+name = "sonnen-exporter"
+version = "0.0.1"
+authors = ["Ben Alex <ben.alex@acegi.com.au>"]
+repository = "https://github.com/benalexau/sonnen-exporter"
+license = "MIT"
+readme = "README.md"
+description = "Prometheus exporter for Sonnen batteries"
+
+[dependencies]
+prometheus   = "0.4"
+lazy_static  = "1.2"
+bytes        = "0.4"
+actix-web    = "0.7"
+reqwest      = "0.9"
+serde        = "1.0"
+serde_derive = "1.0"
+serde_json   = "1.0"
+toml         = "0.4"

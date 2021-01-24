@@ -1,0 +1,6 @@
+listen_port = 9422
+
+[[systems]]
+host = "sonnen.lan"
+sn   = "69957"
+url  = "http://sonnen.lan:8080"

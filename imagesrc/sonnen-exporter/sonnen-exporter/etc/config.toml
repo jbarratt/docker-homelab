@@ -1,0 +1,11 @@
+listen_port = 9422
+
+[[systems]]
+host = "sonnen-a"
+sn   = "Psb12345"
+url  = "http://sonnen-a:8080"
+
+[[systems]]
+host = "sonnen-b"
+sn   = "Psb67890"
+url  = "http://sonnen-b:8080"
