@@ -1,0 +1,29 @@
+version: "3"
+services:
+  mc:
+    image: itzg/minecraft-server
+    ports:
+      - 25565:25565
+    environment:
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+      restart: unless-stopped
+      volumes:
+        ${HOME}/data/minecraft:/data
+  backup:
+    image: lobaro/restic-backup-docker:1.2-0.9.4
+    stdin_open: true
+    tty: true
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      RESTIC_REPOSITORY: ${RESTIC_REPOSITORY}
+      RESTIC_FORGET_ARGS: ${RESTIC_FORGET_ARGS}
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+    volumes:
+      - ./config/restic-hooks:/hooks
+      - ${HOME}/data/minecraft:/data
