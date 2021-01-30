@@ -5,25 +5,61 @@ services:
     ports:
       - 25565:25565
     environment:
+      MOTD: "Vanilla Minecraft, Chill Vibes Only"
       EULA: "TRUE"
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
       restart: unless-stopped
-      volumes:
-        ${HOME}/data/minecraft:/data
-  backup:
-    image: lobaro/restic-backup-docker:1.2-0.9.4
-    stdin_open: true
-    tty: true
+    volumes:
+    - ${HOME}/data/minecraft:/data
+  fantasablock:
+    image: itzg/minecraft-server:adopt15
+    ports:
+      - 25566:25565
     environment:
+      TYPE: "PAPER"
+      MOTD: "Fantasablock Server"
+      MODE: "creative"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+      restart: unless-stopped
+    volumes:
+    - ${HOME}/data/fantasablock:/data
+  disneyland:
+    image: itzg/minecraft-server:adopt15
+    ports:
+      - 25567:25565
+    environment:
+      TYPE: "PAPER"
+      MOTD: "Disneyland Server"
+      MODE: "creative"
+      LEVEL_TYPE: "FLAT"
+      OPS: "Panda626999"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+      restart: unless-stopped
+    volumes:
+    - ${HOME}/data/disneyland:/data
+  backup:
+    image: itzg/mc-backup
+    # This needs to be set because backups use hostnames
+    hostname: minecraftbackup
+    environment:
+      BACKUP_METHOD: restic
+      INITIAL_DELAY: 5
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: us-west-2
       RESTIC_REPOSITORY: ${RESTIC_REPOSITORY}
       RESTIC_FORGET_ARGS: ${RESTIC_FORGET_ARGS}
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
+      RCON_HOST: mc
     volumes:
-      - ./config/restic-hooks:/hooks
-      - ${HOME}/data/minecraft:/data
+      - ${HOME}/data:/data:ro
