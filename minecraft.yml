@@ -45,6 +45,23 @@ services:
       restart: unless-stopped
     volumes:
     - ${HOME}/data/disneyland:/data
+  plainsurvival:
+    image: itzg/minecraft-server:adopt15
+    ports:
+      - 25568:25565
+    environment:
+      TYPE: "PAPER"
+      MOTD: "Plain Survival"
+      MODE: "survival"
+      LEVEL_TYPE: "DEFAULT"
+      OPS: "Panda626999"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+      restart: unless-stopped
+    volumes:
+    - ${HOME}/data/plainsurvival:/data
   backup:
     image: itzg/mc-backup
     # This needs to be set because backups use hostnames
