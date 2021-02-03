@@ -33,11 +33,12 @@ services:
     ports:
       - 25567:25565
     environment:
-      TYPE: "PAPER"
+      #TYPE: "PAPER"
+      TYPE: "FORGE"
       MOTD: "Disneyland Server"
       MODE: "creative"
       LEVEL_TYPE: "FLAT"
-      OPS: "Panda626999"
+      OPS: "panda626999"
       EULA: "TRUE"
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
@@ -77,6 +78,7 @@ services:
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      RCON_HOST: mc
+      RCON_HOST: disneyland
     volumes:
       - ${HOME}/data:/data:ro
+      - ${HOME}/recover:/recover

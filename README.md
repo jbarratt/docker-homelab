@@ -21,6 +21,25 @@ docker-compose -f monitoring.yml stop
 docker-compose pull --ignore-pull-failures && docker-compose up -d # update all
 ```
 
+## Minecraft Commands
+
+### Connecting to rcon in a container
+
+```
+docker-compose -f minecraft.yml exec disneyland rcon-cli
+```
+
+### Backup Recovery
+
+Assuming you have attached a volume at /recover pointing at a different location:
+
+```
+docker-compose -f minecraft.yml exec backup /bin/bash
+# restic snapshots
+# restic restore <sha> --target /recover/myrestore
+```
+
+
 ## Helpful Tips
 
 * [The compose docs](https://docs.docker.com/compose/)
