@@ -14,7 +14,7 @@ services:
     volumes:
     - ${HOME}/data/minecraft:/data
   fantasablock:
-    image: itzg/minecraft-server:adopt15
+    image: itzg/minecraft-server:java15
     ports:
       - 25566:25565
     environment:
@@ -29,7 +29,7 @@ services:
     volumes:
     - ${HOME}/data/fantasablock:/data
   disneyland:
-    image: itzg/minecraft-server:adopt15
+    image: itzg/minecraft-server:java15
     ports:
       - 25567:25565
     environment:
@@ -48,7 +48,7 @@ services:
     volumes:
     - ${HOME}/data/disneyland:/data
   plainsurvival:
-    image: itzg/minecraft-server:adopt15
+    image: itzg/minecraft-server:java15
     ports:
       - 25568:25565
     environment:
