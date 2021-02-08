@@ -48,21 +48,17 @@ docker-compose -f minecraft.yml exec backup /bin/bash
 
 ## To Do
 
-* Add the minecraft server
 * Add minecraft prom exporter and connect to prometheus
-* Add a backup tool for minecraft data, and create limited IAM role to use it
-* Experiment with restores and add to runbook
-* Add a container updater https://github.com/containrrr/watchtower
+* Monitor the backups
 * Extend prometheus to do push notifications over telegram if the server is down
-
-## Bedrock Minecraft Server
-
-
-docker run -d -it -e EULA=TRUE -p 19132:19132/udp itzg/minecraft-bedrock-server
+* solve the rcon work so it works with multiple containers
 
 
 ## `.env` file contents
 
+The `.env` file is not checked in because it has secrets or host-dependent values in it.
+
+```
 AWS_ACCESS_KEY_ID=""
 AWS_SECRET_ACCESS_KEY=""
 AWS_DEFAULT_REGION=""
@@ -70,7 +66,9 @@ RESTIC_REPOSITORY="s3:https://s3.amazonaws.com/mybucket/mybackuppath/"
 RESTIC_FORGET_ARGS="--prune --keep-daily 7 --keep-weekly 52 --keep-monthly 120 --keep-yearly 100"
 RESTIC_PASSWORD="looselips"
 RCON_PASSWORD="nohackingrconplz"
+```
 
+## Sample IAM policy
 
 ```
 {
@@ -80,7 +78,7 @@ RCON_PASSWORD="nohackingrconplz"
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::serialized-backups"
+            "Resource": "arn:aws:s3:::mybucketname"
         },
         {
             "Sid": "VisualEditor1",
@@ -90,7 +88,7 @@ RCON_PASSWORD="nohackingrconplz"
                 "s3:GetObject",
                 "s3:DeleteObject"
             ],
-            "Resource": "arn:aws:s3:::serialized-backups/gibson/*"
+            "Resource": "arn:aws:s3:::mybucketname/myhost/*"
         }
     ]
 }

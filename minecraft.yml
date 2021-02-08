@@ -10,7 +10,7 @@ services:
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: unless-stopped
+      restart: always
     volumes:
     - ${HOME}/data/minecraft:/data
   fantasablock:
@@ -25,7 +25,7 @@ services:
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: unless-stopped
+      restart: always
     volumes:
     - ${HOME}/data/fantasablock:/data
   disneyland:
@@ -37,13 +37,14 @@ services:
       TYPE: "FORGE"
       MOTD: "Disneyland Server"
       MODE: "creative"
+      MEMORY: "4G"
       LEVEL_TYPE: "FLAT"
       OPS: "panda626999"
       EULA: "TRUE"
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: unless-stopped
+      restart: always
     volumes:
     - ${HOME}/data/disneyland:/data
   plainsurvival:
@@ -60,7 +61,7 @@ services:
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: unless-stopped
+      restart: always
     volumes:
     - ${HOME}/data/plainsurvival:/data
   backup:
@@ -69,6 +70,7 @@ services:
     hostname: minecraftbackup
     environment:
       BACKUP_METHOD: restic
+      BACKUP_INTERVAL: "3h"
       INITIAL_DELAY: 5
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
