@@ -28,6 +28,22 @@ services:
       restart: always
     volumes:
     - ${HOME}/data/fantasablock:/data
+  noahtopia:
+    image: itzg/minecraft-server:java15
+    ports:
+      - 25535:25565
+    environment:
+      TYPE: "PAPER"
+      ICON: "https://s7.orientaltrading.com/is/image/OrientalTrading/PDP_VIEWER_THUMB$NOWA$/kids-classic-minecraft-steve-costume~13802122-a01"
+      MOTD: "NOAAAAHHHTOOPPIIAAA"
+      MODE: "creative"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+      restart: always
+    volumes:
+    - ${HOME}/data/noahtopia:/data
   disneyland:
     image: itzg/minecraft-server:java15
     ports:
