@@ -1,18 +1,5 @@
 version: "3"
 services:
-  mc:
-    image: itzg/minecraft-server
-    ports:
-      - 25565:25565
-    environment:
-      MOTD: "Vanilla Minecraft, Chill Vibes Only"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-      restart: always
-    volumes:
-    - ${HOME}/data/minecraft:/data
   fantasablock:
     image: itzg/minecraft-server:java15
     ports:
@@ -25,65 +12,46 @@ services:
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: always
     volumes:
     - ${HOME}/data/fantasablock:/data
+    restart: always
+  disneylander:
+    image: itzg/minecraft-server:java15
+    ports:
+      - 25567:25565
+    environment:
+      TYPE: "FORGE"
+      MOTD: "Disneyland ...er"
+      MODE: "creative"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      GENERATE_STRUCTURES: "false"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      LEVEL_TYPE: "FLAT"
+      RCON_PORT: 28016
+    volumes:
+    - ${HOME}/data/disneylander:/data
   noahtopia:
     image: itzg/minecraft-server:java15
     ports:
       - 25535:25565
     environment:
       TYPE: "PAPER"
-      ICON: "https://s7.orientaltrading.com/is/image/OrientalTrading/PDP_VIEWER_THUMB$NOWA$/kids-classic-minecraft-steve-costume~13802122-a01"
+      ICON: "http://clipart-library.com/new_gallery/57-579791_minecraft-steve-alabama.png"
       MOTD: "NOAAAAHHHTOOPPIIAAA"
       MODE: "creative"
       EULA: "TRUE"
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      restart: always
     volumes:
     - ${HOME}/data/noahtopia:/data
-  disneyland:
-    image: itzg/minecraft-server:java15
-    ports:
-      - 25567:25565
-    environment:
-      #TYPE: "PAPER"
-      TYPE: "FORGE"
-      MOTD: "Disneyland Server"
-      MODE: "creative"
-      MEMORY: "4G"
-      LEVEL_TYPE: "FLAT"
-      OPS: "panda626999"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-      restart: always
-    volumes:
-    - ${HOME}/data/disneyland:/data
-  plainsurvival:
-    image: itzg/minecraft-server:java15
-    ports:
-      - 25568:25565
-    environment:
-      TYPE: "PAPER"
-      MOTD: "Plain Survival"
-      MODE: "survival"
-      LEVEL_TYPE: "DEFAULT"
-      OPS: "Panda626999"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-      restart: always
-    volumes:
-    - ${HOME}/data/plainsurvival:/data
+    restart: always
   backup:
     image: itzg/mc-backup
     # This needs to be set because backups use hostnames
     hostname: minecraftbackup
+    restart: always
     environment:
       BACKUP_METHOD: restic
       BACKUP_INTERVAL: "3h"
@@ -96,7 +64,7 @@ services:
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      RCON_HOST: disneyland
+      RCON_HOST: noahtopia
     volumes:
       - ${HOME}/data:/data:ro
       - ${HOME}/recover:/recover
