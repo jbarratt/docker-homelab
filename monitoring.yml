@@ -67,6 +67,19 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    volumes:
+      - ./config/telegraf:/etc/telegraf
+    expose:
+      - 9283
+    restart: unless-stopped
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.38.6
     container_name: cadvisor
@@ -127,21 +140,21 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  pihole:
-    image: ekofr/pihole-exporter:latest
-    container_name: piholeexporter
-    restart: unless-stopped
-    environment:
-      - PIHOLE_HOSTNAME=192.168.7.181
-      - PIHOLE_PASSWORD=${PIHOLE_PASSWORD}
-      - INTERVAL=30s
-      - PORT=9617
-    expose:
-      - 9617
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
+      #pihole:
+      #image: ekofr/pihole-exporter:latest
+      #container_name: piholeexporter
+      #restart: unless-stopped
+      #environment:
+      #- PIHOLE_HOSTNAME=192.168.7.181
+      #- PIHOLE_PASSWORD=${PIHOLE_PASSWORD}
+      #- INTERVAL=30s
+      #- PORT=9617
+      #expose:
+      #- 9617
+      #networks:
+      #- monitor-net
+      #labels:
+      #org.label-schema.group: "monitoring"
 
   caddy:
     image: stefanprodan/caddy

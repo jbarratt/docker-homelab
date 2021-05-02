@@ -15,6 +15,23 @@ services:
     volumes:
     - ${HOME}/data/fantasablock:/data
     restart: always
+  devonmon:
+    image: itzg/minecraft-server:java8
+    ports:
+      - 25151:25565
+    environment:
+      TYPE: "FORGE"
+      VERSION: "1.12.2"
+      MOTD: "Devon's Pixelmon"
+      MODE: "survival"
+      EULA: "TRUE"
+      MEMORY: "3G"
+      USE_AIKAR_FLAGS: "true"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+    volumes:
+    - ${HOME}/data/devonmon:/data
   disneylander:
     image: itzg/minecraft-server:java15
     ports:
@@ -47,6 +64,34 @@ services:
     volumes:
     - ${HOME}/data/noahtopia:/data
     restart: always
+  datacraft:
+    image: itzg/minecraft-server:java15
+    ports:
+      - 25561:25565
+    environment:
+      TYPE: "PAPER"
+      ICON: "http://clipart-library.com/new_gallery/57-579791_minecraft-steve-alabama.png"
+      MOTD: "Data Craft. Data Craft. Craft Data. Data Craft."
+      MODE: "survival"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+    volumes:
+    - ${HOME}/data/datacraft:/data
+    restart: always
+  sambashare:
+    image: dperson/samba
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ${HOME}/data/:/mount
+    command: '-s "Minecraft Data;/mount;yes;no;no;${SMB_USER}" -u "${SMB_USER};${SMB_PASS}" -p'
   backup:
     image: itzg/mc-backup
     # This needs to be set because backups use hostnames

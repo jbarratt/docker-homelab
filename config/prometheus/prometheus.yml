@@ -33,10 +33,15 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
   
-  - job_name: 'piholeexporter'
-    scrape_interval: 30s
+  - job_name: 'telegraf'
+    scrape_interval: 5s
     static_configs:
-      - targets: ['piholeexporter:9617']
+      - targets: ['telegraf:9283']
+
+        #- job_name: 'piholeexporter'
+        #scrape_interval: 30s
+        #static_configs:
+        #- targets: ['piholeexporter:9617']
 
   - job_name: 'pushgateway'
     scrape_interval: 10s

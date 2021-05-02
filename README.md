@@ -93,3 +93,24 @@ RCON_PASSWORD="nohackingrconplz"
     ]
 }
 ```
+
+## Alerting
+
+Alertmanager's config is not in git because it has creds. But it's stupid simple
+
+```
+route:
+  receiver: pushover
+
+receivers:
+  - name: pushover
+    pushover_configs:
+      - token: app token
+        user_key: your user key
+```
+
+This can be tested as so:
+
+```
+curl -H "Content-Type: application/json" -d '[{"status": "firing", "labels":{"alertname":"TestAlert1"}}]' localhost:9093/alertmanager/api/v1/alerts
+```

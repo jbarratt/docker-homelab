@@ -1,6 +1,6 @@
 listen_port = 9422
 
 [[systems]]
-host = "sonnen.lan"
+host = "192.168.7.201"
 sn   = "69957"
-url  = "http://sonnen.lan:8080"
+url  = "http://192.168.7.201:8080"
