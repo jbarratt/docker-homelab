@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  ddns-route53:
+    image: crazymax/ddns-route53:latest
+    container_name: ddns-route53
+    environment:
+      TZ: "America/Los_Angeles"
+      SCHEDULE: "*/30 * * * *"
+      LOG_LEVEL: "info"
+      LOG_JSON: "false"
+      DDNSR53_CREDENTIALS_ACCESSKEYID: ${R53_ACCESS_KEY}
+      DDNSR53_CREDENTIALS_SECRETACCESSKEY: ${R53_SECRET_KEY}
+      DDNSR53_ROUTE53_HOSTEDZONEID: "Z20MI2LINIUBTH"
+      DDNSR53_ROUTE53_RECORDSSET_0_NAME: mu.serialized.net
+      DDNSR53_ROUTE53_RECORDSSET_0_TYPE: "A"
+      DDNSR53_ROUTE53_RECORDSSET_0_TTL: "300"
+    restart: always
