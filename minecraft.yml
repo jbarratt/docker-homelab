@@ -1,71 +1,7 @@
 version: "3"
 services:
-  fantasablock:
-    image: itzg/minecraft-server:java15
-    ports:
-      - 25566:25565
-    environment:
-      TYPE: "PAPER"
-      MOTD: "Fantasablock Server"
-      MODE: "creative"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-    volumes:
-    - ${HOME}/data/fantasablock:/data
-    restart: always
-  devonmon:
-    image: itzg/minecraft-server:java8
-    ports:
-      - 25151:25565
-    environment:
-      TYPE: "FORGE"
-      VERSION: "1.12.2"
-      MOTD: "Devon's Pixelmon"
-      MODE: "survival"
-      EULA: "TRUE"
-      MEMORY: "3G"
-      USE_AIKAR_FLAGS: "true"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-    volumes:
-    - ${HOME}/data/devonmon:/data
-  disneylander:
-    image: itzg/minecraft-server:java15
-    ports:
-      - 25567:25565
-    environment:
-      TYPE: "FORGE"
-      MOTD: "Disneyland ...er"
-      MODE: "creative"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      GENERATE_STRUCTURES: "false"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      LEVEL_TYPE: "FLAT"
-      RCON_PORT: 28016
-    volumes:
-    - ${HOME}/data/disneylander:/data
-  noahtopia:
-    image: itzg/minecraft-server:java15
-    ports:
-      - 25535:25565
-    environment:
-      TYPE: "PAPER"
-      ICON: "http://clipart-library.com/new_gallery/57-579791_minecraft-steve-alabama.png"
-      MOTD: "NOAAAAHHHTOOPPIIAAA"
-      MODE: "creative"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-    volumes:
-    - ${HOME}/data/noahtopia:/data
-    restart: always
   datacraft:
-    image: itzg/minecraft-server:java15
+    image: itzg/minecraft-server:java16
     ports:
       - 25561:25565
     environment:
@@ -79,6 +15,22 @@ services:
       RCON_PORT: 28016
     volumes:
     - ${HOME}/data/datacraft:/data
+    restart: always
+  tinyblueworld:
+    image: itzg/minecraft-server:java16
+    ports:
+      - 25562:25565
+    environment:
+      TYPE: "PAPER"
+      ICON: "https://image.freepik.com/free-vector/pixel-art-planet-earth_38133-5.jpg"
+      MOTD: "Tiny Blue World for FBKitten and Ruby"
+      MODE: "survival"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      RCON_PORT: 28016
+    volumes:
+    - ${HOME}/data/tinyblueworld:/data
     restart: always
   sambashare:
     image: dperson/samba
@@ -109,7 +61,7 @@ services:
       RESTIC_PASSWORD: ${RESTIC_PASSWORD}
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
-      RCON_HOST: noahtopia
+      RCON_HOST: datacraft
     volumes:
       - ${HOME}/data:/data:ro
       - ${HOME}/recover:/recover
