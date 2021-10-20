@@ -24,9 +24,9 @@ scrape_configs:
       - targets: ['cadvisor:8080']
   
   - job_name: 'sonnenexporter'
-    scrape_interval: 5s
+    scrape_interval: 10s
     static_configs:
-      - targets: ['sonnenexporter:9422']
+      - targets: ['sonnenpython:9423']
 
   - job_name: 'prometheus'
     scrape_interval: 10s
