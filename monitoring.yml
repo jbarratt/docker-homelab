@@ -97,16 +97,14 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  sonnen:
+  sonnenpython:
     build:
-      context: imagesrc/sonnen-exporter/
-    container_name: sonnenexporter
+      context: imagesrc/sonnen-python/
+    container_name: sonnenpython
     expose: 
-      - 9422
+      - 9423
     networks:
       - monitor-net
-    volumes:
-      - ./config/sonnen-exporter:/etc/sonnen-exporter
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
