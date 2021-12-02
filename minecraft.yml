@@ -1,37 +1,54 @@
 version: "3"
 services:
-  datacraft:
+  #datacraft:
+  #  image: itzg/minecraft-server:java16
+  #  ports:
+  #    - 25561:25565
+  #  environment:
+  #    TYPE: "PAPER"
+  #    ICON: "http://clipart-library.com/new_gallery/57-579791_minecraft-steve-alabama.png"
+  #    MOTD: "Data Craft. Data Craft. Craft Data. Data Craft."
+  #    MODE: "survival"
+  #    EULA: "TRUE"
+  #    ENABLE_RCON: "true"
+  #    RCON_PASSWORD: ${RCON_PASSWORD}
+  #    RCON_PORT: 28016
+  #  volumes:
+  #  - ${HOME}/data/datacraft:/data
+  #  restart: always
+  datacraft2:
     image: itzg/minecraft-server:java16
     ports:
-      - 25561:25565
+      - 25563:25565
     environment:
-      TYPE: "PAPER"
+      MEMORY: "4G"
+      TYPE: "VANILLA"
       ICON: "http://clipart-library.com/new_gallery/57-579791_minecraft-steve-alabama.png"
-      MOTD: "Data Craft. Data Craft. Craft Data. Data Craft."
+      MOTD: "Data Craft Season 2: Data Craftier"
       MODE: "survival"
       EULA: "TRUE"
       ENABLE_RCON: "true"
       RCON_PASSWORD: ${RCON_PASSWORD}
       RCON_PORT: 28016
     volumes:
-    - ${HOME}/data/datacraft:/data
+    - ${HOME}/data/datacraft2:/data
     restart: always
-  tinyblueworld:
-    image: itzg/minecraft-server:java16
-    ports:
-      - 25562:25565
-    environment:
-      TYPE: "PAPER"
-      ICON: "https://image.freepik.com/free-vector/pixel-art-planet-earth_38133-5.jpg"
-      MOTD: "Tiny Blue World for FBKitten and Ruby"
-      MODE: "survival"
-      EULA: "TRUE"
-      ENABLE_RCON: "true"
-      RCON_PASSWORD: ${RCON_PASSWORD}
-      RCON_PORT: 28016
-    volumes:
-    - ${HOME}/data/tinyblueworld:/data
-    restart: always
+    #tinyblueworld:
+    #image: itzg/minecraft-server:java16
+    #ports:
+    #  - 25562:25565
+    #environment:
+    #  TYPE: "PAPER"
+    #  ICON: "https://image.freepik.com/free-vector/pixel-art-planet-earth_38133-5.jpg"
+    #  MOTD: "Tiny Blue World for FBKitten and Ruby"
+    #  MODE: "survival"
+    #  EULA: "TRUE"
+    #  ENABLE_RCON: "true"
+    #  RCON_PASSWORD: ${RCON_PASSWORD}
+    #  RCON_PORT: 28016
+    #volumes:
+    #- ${HOME}/data/tinyblueworld:/data
+    #restart: always
   sambashare:
     image: dperson/samba
     ports:
@@ -48,11 +65,12 @@ services:
     image: itzg/mc-backup
     # This needs to be set because backups use hostnames
     hostname: minecraftbackup
+    command: /bin/bash
     restart: always
     environment:
       BACKUP_METHOD: restic
       BACKUP_INTERVAL: "3h"
-      INITIAL_DELAY: 5
+      INITIAL_DELAY: 500
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_DEFAULT_REGION: us-west-2
