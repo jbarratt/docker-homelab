@@ -9,6 +9,13 @@ groups:
     annotations:
       summary: "Monitor service non-operational"
       description: "Service {{ $labels.instance }} is down."
+  - alert: sonnen_down
+    expr: ping_percent_packet_loss{url="192.168.7.149"} > 90.0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Sonnen Device Not Reachable"
 
 - name: host
   rules:
@@ -42,7 +49,7 @@ groups:
 - name: containers
   rules:
   - alert: minecraft_down
-    expr: absent(container_memory_usage_bytes{name="docker-homelab_disneylander_1"})
+    expr: absent(container_memory_usage_bytes{name="docker-homelab_datacraft2_1"})
     for: 30s
     labels:
       severity: critical
